@@ -18,8 +18,8 @@ kernelspec:
 
 In this lecture, you will learn
 - advanced data types
-- basic data processing packages
-- basic file read/write operations
+- basic data processing packages (coming soon)
+- basic file read/write operations (coming soon)
 
 ## Advanced data types
 
@@ -286,5 +286,4 @@ dd = {fruit:d[fruit]+1 for fruit in d]}
 ```
 will define a new `dict`.
 
-## An example
 

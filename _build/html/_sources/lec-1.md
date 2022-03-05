@@ -14,7 +14,7 @@ kernelspec:
 
 ---
 
-# Lecture 1: Python Basics
+# Lecture 1: Python Basics 
 
 `Jupyter notebook` is a tools to make your programming in an interactive way, 
 i.e., a cell-based environment where you can run your program in it one by one.
