@@ -1,0 +1,10 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: install-anaconda
+- file: lec-1
+- file: lec-2
+- file: lec-3
