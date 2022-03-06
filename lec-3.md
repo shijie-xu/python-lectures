@@ -37,8 +37,7 @@ The "Four Musketeers" for Python data analysis: `numPy`, `matplotlib`,
 
 ## Preparation
 This is an advanced lecture so it is recommended to learn [lecture 1](lec-1.md) and [lecture 2](lec-2.md) if you have no background 
-in Python programming. Additionally, as `Seaborn` is based on `Matplotlib`, it is better if you have a touch 
-with `Matplotlib` which you can learn from lecture 2.
+in Python programming. 
 
 Pandas is a data analysis and manipulation tools based on Python. To learn Pandas, 
 the best material is the [official cookbook](https://pandas.pydata.org/pandas-docs/version/1.4.0/pandas.pdf) 
@@ -47,8 +46,8 @@ However, it is too bored to read so long a technical book, and a better way for 
 simple examples.
 
 Before start everything, we need to install Pandas as well as some other packages via {guiLabel}`pip`.
-- numpy: You may already have a basic understanding in lecture 2.
-- openpyxl: Pandas requires it to read excel file.
+- `numpy`: You may already have a basic understanding in lecture 2.
+- `openpyxl`: Pandas requires it to read excel file.
 
 ```{code-cell} ipython3
 !pip install -q numpy pandas openpyxl 
@@ -60,12 +59,5 @@ Before start everything, we need to install Pandas as well as some other package
 but a wrapped shell command, i.e. you can run `pip install numpy` to install `numpy`
 in your {guiLabel}`Anaconda Prompt Shell`.
 :::
-
-
-## A simple example
-```{code-cell} ipython3
-import pandas as pd, numpy as np
-```
-
 
 

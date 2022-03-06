@@ -5,6 +5,7 @@
 # 
 # This is a series of lectures to give beginners a feel for how python programming is proceed.
 # 
+# 
 # ## How to use this interactive lectures
 # 
 # **For beginners, installing Python in the machine is pretty hard. Here we provide both the 
@@ -56,24 +57,26 @@
 # A cell in the page
 # ```
 # 
-# ### Issues
-# If you have any problems about the lectures, please tell me you issues.
-# ```{figure} images/open-issues.png
-# ---
-# height: 100px
-# ---
-# Open an issue.
-# ```
-# 
-# ```{figure} images/submit-issues.png
-# --- 
-# height: 350px
-# ---
-# Submit an issue.
-# ```
-# 
 # 
 # ## Table of contents
 # 
 # ```{tableofcontents}
+# ```
+# 
+# ## The organization of lecture files
+# 
+# [Jupyter Book](https://jupyterbook.org/intro.html) 
+# is an open source project for building beautiful, 
+# publication-quality books and documents from computational material.
+# These lectures are based on Jupter Book and
+# all of the materials (PDF, Jupter Notebook, this site, etc.) are compiled from
+# [MyST Markdown](https://myst-nb.readthedocs.io/en/latest/index.html) files. The pipeline
+# is shown as below
+# 
+# ```{figure} images/organization.png
+# ---
+# height: 200px
+# ---
+# **Jupyter Book(Website)**: If you do not install any Python environments yet, visit the website.
+# **Jupyter Notebook(*.ipynb)**: Run code in local machine.
 # ```
