@@ -230,11 +230,6 @@ const thebe_selector_output = ".output, .cell_output"
    Preparation
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-example">
-   A simple example
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -258,11 +253,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#preparation">
    Preparation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-example">
-   A simple example
   </a>
  </li>
 </ul>
@@ -295,17 +285,19 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>This is an advanced lecture so it is recommended to learn <a class="reference internal" href="lec-1.html"><span class="doc std std-doc">lecture 1</span></a> and <a class="reference internal" href="lec-2.html"><span class="doc std std-doc">lecture 2</span></a> if you have no background
-in Python programming. Additionally, as <code class="docutils literal notranslate"><span class="pre">Seaborn</span></code> is based on <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>, it is better if you have a touch
-with <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code> which you can learn from lecture 2.</p>
+in Python programming.</p>
 <p>Pandas is a data analysis and manipulation tools based on Python. To learn Pandas,
 the best material is the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/1.4.0/pandas.pdf">official cookbook</a>
-which can be found at the <a class="reference external" href="https://pandas.pydata.org">official website</a>.
-However, it is too bored to read so long a technical book, and a better way for beginners is to learn with
-simple examples.</p>
+which can be found at the <a class="reference external" href="https://pandas.pydata.org">official website</a>. The <a class="reference external" href="https://pandas.pydata.org/docs/">documentation for pandas</a> is
+also helpful for your learning.</p>
+<div class="figure align-default" id="id2">
+<a class="reference internal image-reference" href="_images/pandas-docs.png"><img alt="_images/pandas-docs.png" src="_images/pandas-docs.png" style="height: 300px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">A sample entry of pandas docs.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 <p>Before start everything, we need to install Pandas as well as some other packages via <span class="guilabel">pip</span>.</p>
 <ul class="simple">
-<li><p>numpy: You may already have a basic understanding in lecture 2.</p></li>
-<li><p>openpyxl: Pandas requires it to read excel file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code>: You may already have a basic understanding in lecture 2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openpyxl</span></code>: Pandas requires it to read excel file.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -322,16 +314,6 @@ simple examples.</p>
 but a wrapped shell command, i.e. you can run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span></code> to install <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
 in your <span class="guilabel">Anaconda Prompt Shell</span>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="a-simple-example">
-<h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 </div>

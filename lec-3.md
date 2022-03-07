@@ -41,9 +41,15 @@ in Python programming.
 
 Pandas is a data analysis and manipulation tools based on Python. To learn Pandas, 
 the best material is the [official cookbook](https://pandas.pydata.org/pandas-docs/version/1.4.0/pandas.pdf) 
-which can be found at the [official website](https://pandas.pydata.org).
-However, it is too bored to read so long a technical book, and a better way for beginners is to learn with 
-simple examples.
+which can be found at the [official website](https://pandas.pydata.org). The [documentation for pandas](https://pandas.pydata.org/docs/) is 
+also helpful for your learning.
+
+```{figure} images/pandas-docs.png
+---
+height: 300px
+---
+A sample entry of pandas docs.
+```
 
 Before start everything, we need to install Pandas as well as some other packages via {guiLabel}`pip`.
 - `numpy`: You may already have a basic understanding in lecture 2.
