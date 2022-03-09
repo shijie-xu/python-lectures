@@ -47,14 +47,14 @@ height: 250px
 ---
 Launch **Live Code** to make cells executable.
 ```
-Then, the applications will start, you can see following information in the top of the page.
+Then, the Python environment will start and you can see following information in the top of the page.
 ```{figure} images/guide-2.png
 ---
 height: 200px
 ---
 The cells are building.
 ```
-After a waiting for one minute (or more), the building is finished.
+After waiting for a moment, the building is finished.
 ```{figure} images/guide-3.png
 ---
 height: 75px
@@ -62,7 +62,7 @@ height: 75px
 cells are ready.
 ```
 ### Run cells
-You can run and edit any code in the cells on the page, e.g., [Using Python as a calculator](lec-1.html#using-python-as-a-calculator).
+You can now run and edit any code in the cells on the page, e.g., [Using Python as a calculator](lec-1.html#using-python-as-a-calculator).
 ```{figure} images/guide-4.png
 ---
 height: 250px

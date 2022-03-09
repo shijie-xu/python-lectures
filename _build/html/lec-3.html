@@ -48,6 +48,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Lecture 2: Python Basics" href="lec-2.html" />
@@ -230,6 +232,46 @@ const thebe_selector_output = ".output, .cell_output"
    Preparation
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-container">
+   Data container
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#select">
+   Select
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iloc">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iloc
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loc">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       loc
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boolean-access">
+     Boolean access
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modify">
+     Modify
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -255,6 +297,46 @@ const thebe_selector_output = ".output, .cell_output"
    Preparation
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-container">
+   Data container
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#select">
+   Select
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iloc">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iloc
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loc">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       loc
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boolean-access">
+     Boolean access
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modify">
+     Modify
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -270,38 +352,51 @@ const thebe_selector_output = ".output, .cell_output"
 <p class="admonition-title">Warning</p>
 <p>This page is still building. Please be patient for the coming lectures.</p>
 </div>
-<p>In this lecture, we will learn to build a simple pipeline, by which Python will process your data automatically.</p>
-<p>The pipeline includes</p>
-<ul class="simple">
-<li><p>a module reading data from csv/excel file</p></li>
-<li><p>a module plotting figure and saving it to disk.</p></li>
-<li><p>combining them together to a Python script.</p></li>
-</ul>
+<p>In this lecture, we will learn data analysis as well as presentation in Python
+including follwoing four packages:</p>
 <div class="figure align-default" id="id1">
 <a class="reference internal image-reference" href="_images/turtles.jpeg"><img alt="_images/turtles.jpeg" src="_images/turtles.jpeg" style="height: 300px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">The “Four Musketeers” for Python data analysis: <code class="docutils literal notranslate"><span class="pre">numPy</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>,
 <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+<p><strong>Why you need Python data analysis</strong></p>
+<p>Basically, modern office suite like <code class="docutils literal notranslate"><span class="pre">Microsoft</span> <span class="pre">Excel</span></code> provides powerful features
+to process and present your data. However, they are lacking of flexibility and
+the features are hidden in their complex UI (user interface). On the other hand,
+Python gives us more efficient and flexible  way to operate data. For example,
+<code class="docutils literal notranslate"><span class="pre">Microsoft</span> <span class="pre">Excel</span></code> has a maximum row number <span class="math notranslate nohighlight">\(1048576=2^{20}\)</span> in <code class="docutils literal notranslate"><span class="pre">Office</span> <span class="pre">2007</span></code>
+or later while <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can easily exceed this limitation.</p>
+<div class="figure align-default" id="id2">
+<a class="reference internal image-reference" href="_images/pandas-rows.png"><img alt="_images/pandas-rows.png" src="_images/pandas-rows.png" style="height: 250px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">A table has 100,000,000 rows x 1 columns.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>It is also possible to custom a pipeline with help of these packages so
+you can analyze data automatically. Once you build one, you can just run
+it every time when you have new data rather than operating data again and again.</p>
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
-<p>This is an advanced lecture so it is recommended to learn <a class="reference internal" href="lec-1.html"><span class="doc std std-doc">lecture 1</span></a> and <a class="reference internal" href="lec-2.html"><span class="doc std std-doc">lecture 2</span></a> if you have no background
-in Python programming.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an advanced lecture so it is recommended to learn <a class="reference internal" href="lec-1.html"><span class="doc std std-doc">lecture 1</span></a> and
+<a class="reference internal" href="lec-2.html"><span class="doc std std-doc">lecture 2</span></a> before it if you have no background in Python programming.</p>
+</div>
 <p>Pandas is a data analysis and manipulation tools based on Python. To learn Pandas,
 the best material is the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/1.4.0/pandas.pdf">official cookbook</a>
 which can be found at the <a class="reference external" href="https://pandas.pydata.org">official website</a>. The <a class="reference external" href="https://pandas.pydata.org/docs/">documentation for pandas</a> is
 also helpful for your learning.</p>
-<div class="figure align-default" id="id2">
+<div class="figure align-default" id="id3">
 <a class="reference internal image-reference" href="_images/pandas-docs.png"><img alt="_images/pandas-docs.png" src="_images/pandas-docs.png" style="height: 300px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">A sample entry of pandas docs.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">A sample entry of pandas docs. <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is the basic data container in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>Before start everything, we need to install Pandas as well as some other packages via <span class="guilabel">pip</span>.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code>: You may already have a basic understanding in lecture 2.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">openpyxl</span></code>: Pandas requires it to read excel file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numPy</span></code>: <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is based on <code class="docutils literal notranslate"><span class="pre">numPy</span></code>, an efficient numerical computation package written in C++.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openpyxl</span></code>: <code class="docutils literal notranslate"><span class="pre">pandas</span></code> requires it to read data from excel file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>: a graphical package to draw figures.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install -q numpy pandas openpyxl 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install -q pandas numpy openpyxl matplotlib
 </pre></div>
 </div>
 </div>
@@ -311,9 +406,2326 @@ also helpful for your learning.</p>
 <ul class="simple">
 <li><p>Here <code class="docutils literal notranslate"><span class="pre">-q</span></code> means quiet installation which can be ignored if you don not understand.</p></li>
 <li><p>In Jupyter Notebook, command starting with mark <code class="docutils literal notranslate"><span class="pre">!</span></code> is NOT native Python code,
-but a wrapped shell command, i.e. you can run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span></code> to install <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
+but a wrapped shell command, i.e. you can run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span></code> to install <code class="docutils literal notranslate"><span class="pre">numPy</span></code>
 in your <span class="guilabel">Anaconda Prompt Shell</span>.</p></li>
 </ul>
+</div>
+<p>Let us import these two packages with short names:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-container">
+<h2>Data container<a class="headerlink" href="#data-container" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code> provides two types of container <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> which are used to store sequential
+and tabular data respectively.</p>
+<div class="figure align-default" id="id4">
+<a class="reference internal image-reference" href="_images/series.png"><img alt="_images/series.png" src="_images/series.png" style="height: 100px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">Series</span></code> storing sequential data.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id5">
+<a class="reference internal image-reference" href="_images/dataframe.png"><img alt="_images/dataframe.png" src="_images/dataframe.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> storing tabular data.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>Run following code to create two data containers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1
+1    2
+2    3
+3    4
+4    5
+5    6
+dtype: int64
+    0   1   2   3   4   5
+0   1   2   3   4   5   6
+1   7   8   9  10  11  12
+2  13  14  15  16  17  18
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here <code class="docutils literal notranslate"><span class="pre">np.arange(1,</span> <span class="pre">19)</span></code> will generate a arrary from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(18\)</span>, and <code class="docutils literal notranslate"><span class="pre">reshape(3,</span> <span class="pre">-1)</span></code>
+will change the shape of arrary with first dimension as <span class="math notranslate nohighlight">\(3\)</span>. Parameter <code class="docutils literal notranslate"><span class="pre">-1</span></code> means it will be
+derivated internally and here will be replaced with <span class="math notranslate nohighlight">\(6\)</span> because <span class="math notranslate nohighlight">\(6=18\div 3\)</span>.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">shape</span></code> is a property of container and it is a tuple of dimensions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(6,)
+(3, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<p>For very large <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">notebook</span></code> will only show a part of the content:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.306240</td>
+      <td>-0.061611</td>
+      <td>0.779984</td>
+      <td>-2.337055</td>
+      <td>-0.943123</td>
+      <td>-0.349840</td>
+      <td>0.875307</td>
+      <td>-1.266022</td>
+      <td>-0.136138</td>
+      <td>1.081146</td>
+      <td>...</td>
+      <td>0.510254</td>
+      <td>0.072996</td>
+      <td>-0.625173</td>
+      <td>1.467650</td>
+      <td>0.776503</td>
+      <td>-0.182904</td>
+      <td>-0.434539</td>
+      <td>1.803769</td>
+      <td>0.371428</td>
+      <td>-0.134464</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.564416</td>
+      <td>0.698498</td>
+      <td>-0.507794</td>
+      <td>-0.968791</td>
+      <td>0.397854</td>
+      <td>0.102837</td>
+      <td>-0.127172</td>
+      <td>-0.308133</td>
+      <td>0.220845</td>
+      <td>-1.565867</td>
+      <td>...</td>
+      <td>0.322148</td>
+      <td>-1.003378</td>
+      <td>-0.692078</td>
+      <td>-1.566500</td>
+      <td>-1.095755</td>
+      <td>-0.612774</td>
+      <td>-0.059283</td>
+      <td>-0.473592</td>
+      <td>-1.026126</td>
+      <td>-1.298467</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.022133</td>
+      <td>-0.301985</td>
+      <td>1.062257</td>
+      <td>0.640781</td>
+      <td>-0.417655</td>
+      <td>-1.288552</td>
+      <td>-0.346588</td>
+      <td>0.542851</td>
+      <td>0.476821</td>
+      <td>1.314897</td>
+      <td>...</td>
+      <td>0.012141</td>
+      <td>0.077571</td>
+      <td>0.232534</td>
+      <td>-0.059046</td>
+      <td>0.458403</td>
+      <td>1.474450</td>
+      <td>1.132899</td>
+      <td>-2.212876</td>
+      <td>-0.738149</td>
+      <td>2.300046</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.312576</td>
+      <td>-0.763421</td>
+      <td>0.017539</td>
+      <td>1.332786</td>
+      <td>1.558924</td>
+      <td>-1.541103</td>
+      <td>-1.276334</td>
+      <td>0.215874</td>
+      <td>-2.142381</td>
+      <td>0.289651</td>
+      <td>...</td>
+      <td>-1.372186</td>
+      <td>1.892248</td>
+      <td>0.145261</td>
+      <td>2.039979</td>
+      <td>1.283478</td>
+      <td>-0.659949</td>
+      <td>-0.937093</td>
+      <td>0.062956</td>
+      <td>0.112820</td>
+      <td>1.887922</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.698356</td>
+      <td>-0.147413</td>
+      <td>0.088415</td>
+      <td>0.040485</td>
+      <td>0.896300</td>
+      <td>-1.473397</td>
+      <td>-0.252203</td>
+      <td>0.503982</td>
+      <td>0.719868</td>
+      <td>-1.919217</td>
+      <td>...</td>
+      <td>-0.404915</td>
+      <td>0.117167</td>
+      <td>-2.634702</td>
+      <td>-0.368851</td>
+      <td>1.537464</td>
+      <td>0.276666</td>
+      <td>-0.555655</td>
+      <td>-0.080517</td>
+      <td>-0.549547</td>
+      <td>-0.014485</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>-1.030173</td>
+      <td>0.520579</td>
+      <td>-0.088985</td>
+      <td>0.505738</td>
+      <td>0.758943</td>
+      <td>-2.125331</td>
+      <td>2.110121</td>
+      <td>-0.643785</td>
+      <td>0.653406</td>
+      <td>1.737843</td>
+      <td>...</td>
+      <td>-1.197817</td>
+      <td>0.085870</td>
+      <td>-0.070311</td>
+      <td>-0.093512</td>
+      <td>-0.732207</td>
+      <td>-0.165026</td>
+      <td>-0.052608</td>
+      <td>1.274726</td>
+      <td>0.180678</td>
+      <td>-0.131143</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>0.724171</td>
+      <td>1.504935</td>
+      <td>-1.864202</td>
+      <td>1.743766</td>
+      <td>1.021755</td>
+      <td>-0.539055</td>
+      <td>1.247763</td>
+      <td>-0.298266</td>
+      <td>-0.097268</td>
+      <td>-0.230134</td>
+      <td>...</td>
+      <td>-2.120406</td>
+      <td>0.005262</td>
+      <td>-1.343994</td>
+      <td>-0.836619</td>
+      <td>0.417451</td>
+      <td>1.430887</td>
+      <td>-0.537734</td>
+      <td>0.753558</td>
+      <td>-0.386267</td>
+      <td>-1.374828</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>-0.137922</td>
+      <td>-0.735277</td>
+      <td>-1.128535</td>
+      <td>0.203943</td>
+      <td>-0.019424</td>
+      <td>1.499192</td>
+      <td>-0.586642</td>
+      <td>-1.594188</td>
+      <td>1.053992</td>
+      <td>-2.333686</td>
+      <td>...</td>
+      <td>1.119338</td>
+      <td>0.626797</td>
+      <td>-0.377950</td>
+      <td>0.805291</td>
+      <td>-0.235988</td>
+      <td>0.771549</td>
+      <td>0.086182</td>
+      <td>0.048302</td>
+      <td>-0.080636</td>
+      <td>-1.728695</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>-2.118018</td>
+      <td>0.105255</td>
+      <td>0.004242</td>
+      <td>-2.022938</td>
+      <td>0.860640</td>
+      <td>2.574860</td>
+      <td>2.170606</td>
+      <td>2.367764</td>
+      <td>-0.453150</td>
+      <td>-0.517674</td>
+      <td>...</td>
+      <td>0.155606</td>
+      <td>-0.726813</td>
+      <td>1.202586</td>
+      <td>-0.217078</td>
+      <td>-0.362934</td>
+      <td>-0.197063</td>
+      <td>-0.197072</td>
+      <td>0.592610</td>
+      <td>-1.061161</td>
+      <td>-0.506541</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>-2.318547</td>
+      <td>-2.444134</td>
+      <td>-1.409673</td>
+      <td>-0.036565</td>
+      <td>0.653080</td>
+      <td>1.410935</td>
+      <td>-0.806847</td>
+      <td>-1.842559</td>
+      <td>0.872539</td>
+      <td>-0.695219</td>
+      <td>...</td>
+      <td>-0.010689</td>
+      <td>0.665332</td>
+      <td>1.027394</td>
+      <td>-2.144730</td>
+      <td>0.128484</td>
+      <td>-2.347197</td>
+      <td>0.868505</td>
+      <td>-1.331631</td>
+      <td>0.269785</td>
+      <td>-1.046118</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 30 columns</p>
+</div></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here <code class="docutils literal notranslate"><span class="pre">np.random.randn(n,</span> <span class="pre">m)</span></code> will generate a random matrix with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(m\)</span> columns.
+Each element in the matrix follows the standard <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>
+<span class="math notranslate nohighlight">\( X\sim \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\)</span></p>
+</div>
+<p>Try <code class="docutils literal notranslate"><span class="pre">head(n)</span></code> and it will give you the first <span class="math notranslate nohighlight">\(n\)</span> rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> while <code class="docutils literal notranslate"><span class="pre">tail(n)</span></code>
+will give the last <span class="math notranslate nohighlight">\(n\)</span> rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.306240</td>
+      <td>-0.061611</td>
+      <td>0.779984</td>
+      <td>-2.337055</td>
+      <td>-0.943123</td>
+      <td>-0.349840</td>
+      <td>0.875307</td>
+      <td>-1.266022</td>
+      <td>-0.136138</td>
+      <td>1.081146</td>
+      <td>...</td>
+      <td>0.510254</td>
+      <td>0.072996</td>
+      <td>-0.625173</td>
+      <td>1.467650</td>
+      <td>0.776503</td>
+      <td>-0.182904</td>
+      <td>-0.434539</td>
+      <td>1.803769</td>
+      <td>0.371428</td>
+      <td>-0.134464</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.564416</td>
+      <td>0.698498</td>
+      <td>-0.507794</td>
+      <td>-0.968791</td>
+      <td>0.397854</td>
+      <td>0.102837</td>
+      <td>-0.127172</td>
+      <td>-0.308133</td>
+      <td>0.220845</td>
+      <td>-1.565867</td>
+      <td>...</td>
+      <td>0.322148</td>
+      <td>-1.003378</td>
+      <td>-0.692078</td>
+      <td>-1.566500</td>
+      <td>-1.095755</td>
+      <td>-0.612774</td>
+      <td>-0.059283</td>
+      <td>-0.473592</td>
+      <td>-1.026126</td>
+      <td>-1.298467</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.022133</td>
+      <td>-0.301985</td>
+      <td>1.062257</td>
+      <td>0.640781</td>
+      <td>-0.417655</td>
+      <td>-1.288552</td>
+      <td>-0.346588</td>
+      <td>0.542851</td>
+      <td>0.476821</td>
+      <td>1.314897</td>
+      <td>...</td>
+      <td>0.012141</td>
+      <td>0.077571</td>
+      <td>0.232534</td>
+      <td>-0.059046</td>
+      <td>0.458403</td>
+      <td>1.474450</td>
+      <td>1.132899</td>
+      <td>-2.212876</td>
+      <td>-0.738149</td>
+      <td>2.300046</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.312576</td>
+      <td>-0.763421</td>
+      <td>0.017539</td>
+      <td>1.332786</td>
+      <td>1.558924</td>
+      <td>-1.541103</td>
+      <td>-1.276334</td>
+      <td>0.215874</td>
+      <td>-2.142381</td>
+      <td>0.289651</td>
+      <td>...</td>
+      <td>-1.372186</td>
+      <td>1.892248</td>
+      <td>0.145261</td>
+      <td>2.039979</td>
+      <td>1.283478</td>
+      <td>-0.659949</td>
+      <td>-0.937093</td>
+      <td>0.062956</td>
+      <td>0.112820</td>
+      <td>1.887922</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.698356</td>
+      <td>-0.147413</td>
+      <td>0.088415</td>
+      <td>0.040485</td>
+      <td>0.896300</td>
+      <td>-1.473397</td>
+      <td>-0.252203</td>
+      <td>0.503982</td>
+      <td>0.719868</td>
+      <td>-1.919217</td>
+      <td>...</td>
+      <td>-0.404915</td>
+      <td>0.117167</td>
+      <td>-2.634702</td>
+      <td>-0.368851</td>
+      <td>1.537464</td>
+      <td>0.276666</td>
+      <td>-0.555655</td>
+      <td>-0.080517</td>
+      <td>-0.549547</td>
+      <td>-0.014485</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 30 columns</p>
+</div></div></div>
+</div>
+<p>In order to make our examples meaningful,
+we employ a real-world dataset as an example to show how <code class="docutils literal notranslate"><span class="pre">pandas</span></code> works. <a class="reference external" href="https://covid19.who.int/info">World Health Organization</a>
+provides latest data about the COVID-19 such as vaccination and confirmed cases, which is keeped in CSV-format files. Here we
+refer to the vaccination data: <a class="reference external" href="https://covid19.who.int/who-data/vaccination-data.csv">https://covid19.who.int/who-data/vaccination-data.csv</a>.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://covid19.who.int/who-data/vaccination-data.csv&#39;</span><span class="p">)</span>
+<span class="n">vac</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>ISO3</th>
+      <th>WHO_REGION</th>
+      <th>DATA_SOURCE</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <th>VACCINES_USED</th>
+      <th>FIRST_VACCINE_DATE</th>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>AFG</td>
+      <td>EMRO</td>
+      <td>REPORTING</td>
+      <td>2022-03-06</td>
+      <td>5597130</td>
+      <td>4952744.0</td>
+      <td>14.378</td>
+      <td>12.723</td>
+      <td>4281934.0</td>
+      <td>11.000</td>
+      <td>Beijing CNBG - BBIBP-CorV,Janssen - Ad26.COV 2...</td>
+      <td>2021-02-22</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albania</td>
+      <td>ALB</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-20</td>
+      <td>2707658</td>
+      <td>1284034.0</td>
+      <td>94.100</td>
+      <td>45.118</td>
+      <td>1192155.0</td>
+      <td>41.889</td>
+      <td>AstraZeneca - Vaxzevria,Gamaleya - Gam-Covid-V...</td>
+      <td>2021-01-13</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Algeria</td>
+      <td>DZA</td>
+      <td>AFRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-20</td>
+      <td>13631683</td>
+      <td>7456361.0</td>
+      <td>31.086</td>
+      <td>17.004</td>
+      <td>6076272.0</td>
+      <td>13.857</td>
+      <td>Beijing CNBG - BBIBP-CorV,Gamaleya - Gam-Covid...</td>
+      <td>2021-01-30</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>American Samoa</td>
+      <td>ASM</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-16</td>
+      <td>85050</td>
+      <td>42212.0</td>
+      <td>154.084</td>
+      <td>76.475</td>
+      <td>37805.0</td>
+      <td>68.491</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>2020-12-21</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Andorra</td>
+      <td>AND</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-13</td>
+      <td>142420</td>
+      <td>57797.0</td>
+      <td>184.300</td>
+      <td>75.872</td>
+      <td>53250.0</td>
+      <td>69.903</td>
+      <td>AstraZeneca - Vaxzevria,Moderna - Spikevax,Pfi...</td>
+      <td>2021-01-20</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>Viet Nam</td>
+      <td>VNM</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-24</td>
+      <td>192865986</td>
+      <td>79469390.0</td>
+      <td>198.139</td>
+      <td>81.642</td>
+      <td>75322542.0</td>
+      <td>77.382</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-03-08</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>224</th>
+      <td>Wallis and Futuna</td>
+      <td>WLF</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-18</td>
+      <td>15633</td>
+      <td>6450.0</td>
+      <td>139.009</td>
+      <td>57.354</td>
+      <td>6399.0</td>
+      <td>56.900</td>
+      <td>Moderna - Spikevax</td>
+      <td>2021-03-19</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>Yemen</td>
+      <td>YEM</td>
+      <td>EMRO</td>
+      <td>REPORTING</td>
+      <td>2022-03-06</td>
+      <td>784792</td>
+      <td>624837.0</td>
+      <td>2.631</td>
+      <td>2.095</td>
+      <td>384655.0</td>
+      <td>1.290</td>
+      <td>Janssen - Ad26.COV 2-S,SII - Covishield,Sinova...</td>
+      <td>2021-04-20</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>226</th>
+      <td>Zambia</td>
+      <td>ZMB</td>
+      <td>AFRO</td>
+      <td>REPORTING</td>
+      <td>2022-03-03</td>
+      <td>2858338</td>
+      <td>2510296.0</td>
+      <td>15.548</td>
+      <td>13.655</td>
+      <td>1883799.0</td>
+      <td>10.247</td>
+      <td>Beijing CNBG - BBIBP-CorV,Janssen - Ad26.COV 2...</td>
+      <td>2021-04-14</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>227</th>
+      <td>Zimbabwe</td>
+      <td>ZWE</td>
+      <td>AFRO</td>
+      <td>REPORTING</td>
+      <td>2022-03-04</td>
+      <td>7904719</td>
+      <td>4368633.0</td>
+      <td>53.184</td>
+      <td>29.393</td>
+      <td>3403501.0</td>
+      <td>22.899</td>
+      <td>Beijing CNBG - BBIBP-CorV,Bharat - Covaxin,Gam...</td>
+      <td>2021-02-18</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>228 rows × 14 columns</p>
+</div></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">read_csv(path)</span></code> reads a CSV-format file from URL (Web link or local file) and returns a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.
+For example, you can use <code class="docutils literal notranslate"><span class="pre">pd.read_csv('./data.csv')</span></code> to load csv file from your current directory.</p>
+</div>
+<p>Properties <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> will give the row/column labels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;COUNTRY&#39;, &#39;ISO3&#39;, &#39;WHO_REGION&#39;, &#39;DATA_SOURCE&#39;, &#39;DATE_UPDATED&#39;,
+       &#39;TOTAL_VACCINATIONS&#39;, &#39;PERSONS_VACCINATED_1PLUS_DOSE&#39;,
+       &#39;TOTAL_VACCINATIONS_PER100&#39;, &#39;PERSONS_VACCINATED_1PLUS_DOSE_PER100&#39;,
+       &#39;PERSONS_FULLY_VACCINATED&#39;, &#39;PERSONS_FULLY_VACCINATED_PER100&#39;,
+       &#39;VACCINES_USED&#39;, &#39;FIRST_VACCINE_DATE&#39;, &#39;NUMBER_VACCINES_TYPES_USED&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition, you may want to sort by values, just like what we usually do in <code class="docutils literal notranslate"><span class="pre">Excel</span></code>.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;TOTAL_VACCINATIONS&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>ISO3</th>
+      <th>WHO_REGION</th>
+      <th>DATA_SOURCE</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <th>VACCINES_USED</th>
+      <th>FIRST_VACCINE_DATE</th>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>43</th>
+      <td>China</td>
+      <td>CHN</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-27</td>
+      <td>3138003103</td>
+      <td>1.276556e+09</td>
+      <td>213.283</td>
+      <td>86.765</td>
+      <td>1.235633e+09</td>
+      <td>83.983</td>
+      <td>Anhui ZL - Recombinant,Beijing CNBG - BBIBP-Co...</td>
+      <td>2020-07-22</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>India</td>
+      <td>IND</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-02-28</td>
+      <td>1776718549</td>
+      <td>9.642345e+08</td>
+      <td>128.747</td>
+      <td>69.872</td>
+      <td>7.923996e+08</td>
+      <td>57.420</td>
+      <td>Bharat - Covaxin,Gamaleya - Gam-Covid-Vac,Jans...</td>
+      <td>2021-01-16</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>218</th>
+      <td>United States of America</td>
+      <td>USA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>537567013</td>
+      <td>2.531571e+08</td>
+      <td>162.406</td>
+      <td>76.482</td>
+      <td>2.101726e+08</td>
+      <td>63.496</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>2020-12-14</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Brazil</td>
+      <td>BRA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>369527744</td>
+      <td>1.723341e+08</td>
+      <td>173.847</td>
+      <td>81.076</td>
+      <td>1.487775e+08</td>
+      <td>69.993</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2021-01-17</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Indonesia</td>
+      <td>IDN</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-03-01</td>
+      <td>345697245</td>
+      <td>1.909768e+08</td>
+      <td>126.387</td>
+      <td>69.821</td>
+      <td>1.445058e+08</td>
+      <td>52.831</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-01-13</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>172</th>
+      <td>Saba</td>
+      <td>XCA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>3148</td>
+      <td>1.582000e+03</td>
+      <td>162.856</td>
+      <td>81.842</td>
+      <td>1.566000e+03</td>
+      <td>81.014</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>186</th>
+      <td>Sint Eustatius</td>
+      <td>XBA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>3110</td>
+      <td>1.588000e+03</td>
+      <td>99.076</td>
+      <td>50.589</td>
+      <td>1.522000e+03</td>
+      <td>48.487</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>Niue</td>
+      <td>NIU</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2021-11-24</td>
+      <td>2628</td>
+      <td>1.340000e+03</td>
+      <td>162.423</td>
+      <td>82.818</td>
+      <td>1.288000e+03</td>
+      <td>79.604</td>
+      <td>Pfizer BioNTech - Comirnaty</td>
+      <td>2021-06-08</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>206</th>
+      <td>Tokelau</td>
+      <td>TKL</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2021-09-28</td>
+      <td>1936</td>
+      <td>9.680000e+02</td>
+      <td>143.407</td>
+      <td>71.704</td>
+      <td>9.680000e+02</td>
+      <td>71.704</td>
+      <td>Pfizer BioNTech - Comirnaty</td>
+      <td>2021-07-20</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>162</th>
+      <td>Pitcairn Islands</td>
+      <td>PCN</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2021-11-11</td>
+      <td>74</td>
+      <td>3.700000e+01</td>
+      <td>148.000</td>
+      <td>74.000</td>
+      <td>3.700000e+01</td>
+      <td>74.000</td>
+      <td>AstraZeneca - Vaxzevria</td>
+      <td>2021-05-17</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>228 rows × 14 columns</p>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> property will return a transpose of <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>218</th>
+      <th>219</th>
+      <th>220</th>
+      <th>221</th>
+      <th>222</th>
+      <th>223</th>
+      <th>224</th>
+      <th>225</th>
+      <th>226</th>
+      <th>227</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>COUNTRY</th>
+      <td>Afghanistan</td>
+      <td>Albania</td>
+      <td>Algeria</td>
+      <td>American Samoa</td>
+      <td>Andorra</td>
+      <td>Angola</td>
+      <td>Anguilla</td>
+      <td>Antigua and Barbuda</td>
+      <td>Argentina</td>
+      <td>Armenia</td>
+      <td>...</td>
+      <td>United States of America</td>
+      <td>Uruguay</td>
+      <td>Uzbekistan</td>
+      <td>Vanuatu</td>
+      <td>Venezuela (Bolivarian Republic of)</td>
+      <td>Viet Nam</td>
+      <td>Wallis and Futuna</td>
+      <td>Yemen</td>
+      <td>Zambia</td>
+      <td>Zimbabwe</td>
+    </tr>
+    <tr>
+      <th>ISO3</th>
+      <td>AFG</td>
+      <td>ALB</td>
+      <td>DZA</td>
+      <td>ASM</td>
+      <td>AND</td>
+      <td>AGO</td>
+      <td>AIA</td>
+      <td>ATG</td>
+      <td>ARG</td>
+      <td>ARM</td>
+      <td>...</td>
+      <td>USA</td>
+      <td>URY</td>
+      <td>UZB</td>
+      <td>VUT</td>
+      <td>VEN</td>
+      <td>VNM</td>
+      <td>WLF</td>
+      <td>YEM</td>
+      <td>ZMB</td>
+      <td>ZWE</td>
+    </tr>
+    <tr>
+      <th>WHO_REGION</th>
+      <td>EMRO</td>
+      <td>EURO</td>
+      <td>AFRO</td>
+      <td>WPRO</td>
+      <td>EURO</td>
+      <td>AFRO</td>
+      <td>AMRO</td>
+      <td>AMRO</td>
+      <td>AMRO</td>
+      <td>EURO</td>
+      <td>...</td>
+      <td>AMRO</td>
+      <td>AMRO</td>
+      <td>EURO</td>
+      <td>WPRO</td>
+      <td>AMRO</td>
+      <td>WPRO</td>
+      <td>WPRO</td>
+      <td>EMRO</td>
+      <td>AFRO</td>
+      <td>AFRO</td>
+    </tr>
+    <tr>
+      <th>DATA_SOURCE</th>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>...</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+      <td>REPORTING</td>
+    </tr>
+    <tr>
+      <th>DATE_UPDATED</th>
+      <td>2022-03-06</td>
+      <td>2022-02-20</td>
+      <td>2022-02-20</td>
+      <td>2022-02-16</td>
+      <td>2022-02-13</td>
+      <td>2022-03-02</td>
+      <td>2022-02-25</td>
+      <td>2022-02-25</td>
+      <td>2022-02-25</td>
+      <td>2022-02-13</td>
+      <td>...</td>
+      <td>2022-02-25</td>
+      <td>2022-02-25</td>
+      <td>2022-02-20</td>
+      <td>2022-02-20</td>
+      <td>2022-02-25</td>
+      <td>2022-02-24</td>
+      <td>2022-02-18</td>
+      <td>2022-03-06</td>
+      <td>2022-03-03</td>
+      <td>2022-03-04</td>
+    </tr>
+    <tr>
+      <th>TOTAL_VACCINATIONS</th>
+      <td>5597130</td>
+      <td>2707658</td>
+      <td>13631683</td>
+      <td>85050</td>
+      <td>142420</td>
+      <td>16633167</td>
+      <td>22165</td>
+      <td>124726</td>
+      <td>93008081</td>
+      <td>1971565</td>
+      <td>...</td>
+      <td>537567013</td>
+      <td>7612199</td>
+      <td>42121870</td>
+      <td>197335</td>
+      <td>37860994</td>
+      <td>192865986</td>
+      <td>15633</td>
+      <td>784792</td>
+      <td>2858338</td>
+      <td>7904719</td>
+    </tr>
+    <tr>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <td>4952744.0</td>
+      <td>1284034.0</td>
+      <td>7456361.0</td>
+      <td>42212.0</td>
+      <td>57797.0</td>
+      <td>10780927.0</td>
+      <td>10370.0</td>
+      <td>63582.0</td>
+      <td>40572052.0</td>
+      <td>1080404.0</td>
+      <td>...</td>
+      <td>253157102.0</td>
+      <td>2964083.0</td>
+      <td>18446210.0</td>
+      <td>114284.0</td>
+      <td>22157232.0</td>
+      <td>79469390.0</td>
+      <td>6450.0</td>
+      <td>624837.0</td>
+      <td>2510296.0</td>
+      <td>4368633.0</td>
+    </tr>
+    <tr>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <td>14.378</td>
+      <td>94.1</td>
+      <td>31.086</td>
+      <td>154.084</td>
+      <td>184.3</td>
+      <td>50.609</td>
+      <td>147.747</td>
+      <td>127.364</td>
+      <td>205.789</td>
+      <td>66.5</td>
+      <td>...</td>
+      <td>162.406</td>
+      <td>219.136</td>
+      <td>125.9</td>
+      <td>64.248</td>
+      <td>133.145</td>
+      <td>198.139</td>
+      <td>139.009</td>
+      <td>2.631</td>
+      <td>15.548</td>
+      <td>53.184</td>
+    </tr>
+    <tr>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <td>12.723</td>
+      <td>45.118</td>
+      <td>17.004</td>
+      <td>76.475</td>
+      <td>75.872</td>
+      <td>32.802</td>
+      <td>69.124</td>
+      <td>64.927</td>
+      <td>89.77</td>
+      <td>36.46</td>
+      <td>...</td>
+      <td>76.482</td>
+      <td>85.329</td>
+      <td>55.114</td>
+      <td>37.208</td>
+      <td>77.92</td>
+      <td>81.642</td>
+      <td>57.354</td>
+      <td>2.095</td>
+      <td>13.655</td>
+      <td>29.393</td>
+    </tr>
+    <tr>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <td>4281934.0</td>
+      <td>1192155.0</td>
+      <td>6076272.0</td>
+      <td>37805.0</td>
+      <td>53250.0</td>
+      <td>5609044.0</td>
+      <td>9531.0</td>
+      <td>61144.0</td>
+      <td>36237826.0</td>
+      <td>872336.0</td>
+      <td>...</td>
+      <td>210172612.0</td>
+      <td>2728709.0</td>
+      <td>13160671.0</td>
+      <td>85180.0</td>
+      <td>14287370.0</td>
+      <td>75322542.0</td>
+      <td>6399.0</td>
+      <td>384655.0</td>
+      <td>1883799.0</td>
+      <td>3403501.0</td>
+    </tr>
+    <tr>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <td>11.0</td>
+      <td>41.889</td>
+      <td>13.857</td>
+      <td>68.491</td>
+      <td>69.903</td>
+      <td>17.066</td>
+      <td>63.532</td>
+      <td>62.437</td>
+      <td>80.18</td>
+      <td>29.439</td>
+      <td>...</td>
+      <td>63.496</td>
+      <td>78.553</td>
+      <td>39.322</td>
+      <td>27.733</td>
+      <td>50.244</td>
+      <td>77.382</td>
+      <td>56.9</td>
+      <td>1.29</td>
+      <td>10.247</td>
+      <td>22.899</td>
+    </tr>
+    <tr>
+      <th>VACCINES_USED</th>
+      <td>Beijing CNBG - BBIBP-CorV,Janssen - Ad26.COV 2...</td>
+      <td>AstraZeneca - Vaxzevria,Gamaleya - Gam-Covid-V...</td>
+      <td>Beijing CNBG - BBIBP-CorV,Gamaleya - Gam-Covid...</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>AstraZeneca - Vaxzevria,Moderna - Spikevax,Pfi...</td>
+      <td>SII - Covishield</td>
+      <td>AstraZeneca - Vaxzevria,Pfizer BioNTech - Comi...</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>...</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>AstraZeneca - Vaxzevria,Pfizer BioNTech - Comi...</td>
+      <td>Anhui ZL - Recombinant,Gamaleya - Gam-Covid-Va...</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>Beijing CNBG - BBIBP-CorV,CIGB - CIGB-66,Finla...</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>Moderna - Spikevax</td>
+      <td>Janssen - Ad26.COV 2-S,SII - Covishield,Sinova...</td>
+      <td>Beijing CNBG - BBIBP-CorV,Janssen - Ad26.COV 2...</td>
+      <td>Beijing CNBG - BBIBP-CorV,Bharat - Covaxin,Gam...</td>
+    </tr>
+    <tr>
+      <th>FIRST_VACCINE_DATE</th>
+      <td>2021-02-22</td>
+      <td>2021-01-13</td>
+      <td>2021-01-30</td>
+      <td>2020-12-21</td>
+      <td>2021-01-20</td>
+      <td>2021-03-10</td>
+      <td>2021-02-05</td>
+      <td>2021-03-01</td>
+      <td>2020-12-29</td>
+      <td>2021-06-16</td>
+      <td>...</td>
+      <td>2020-12-14</td>
+      <td>2021-02-27</td>
+      <td>2021-04-28</td>
+      <td>2021-06-02</td>
+      <td>2021-02-22</td>
+      <td>2021-03-08</td>
+      <td>2021-03-19</td>
+      <td>2021-04-20</td>
+      <td>2021-04-14</td>
+      <td>2021-02-18</td>
+    </tr>
+    <tr>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>6.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>7.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>14 rows × 228 columns</p>
+</div></div></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">describe()</span></code> function to have a quick look on <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TOTAL_VACCINATIONS</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2.280000e+02</td>
+      <td>2.270000e+02</td>
+      <td>228.000000</td>
+      <td>227.000000</td>
+      <td>2.270000e+02</td>
+      <td>227.000000</td>
+      <td>225.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>4.694756e+07</td>
+      <td>2.187060e+07</td>
+      <td>122.156500</td>
+      <td>55.765784</td>
+      <td>1.928435e+07</td>
+      <td>50.121868</td>
+      <td>3.928889</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>2.442809e+08</td>
+      <td>1.090964e+08</td>
+      <td>71.896713</td>
+      <td>27.044030</td>
+      <td>9.958222e+07</td>
+      <td>26.417687</td>
+      <td>1.928247</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>7.400000e+01</td>
+      <td>3.700000e+01</td>
+      <td>0.097000</td>
+      <td>0.082000</td>
+      <td>3.700000e+01</td>
+      <td>0.077000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3.534380e+05</td>
+      <td>1.733685e+05</td>
+      <td>62.841000</td>
+      <td>34.350500</td>
+      <td>1.458095e+05</td>
+      <td>29.097500</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2.721102e+06</td>
+      <td>1.536112e+06</td>
+      <td>127.515000</td>
+      <td>63.069000</td>
+      <td>1.192155e+06</td>
+      <td>53.974000</td>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.670141e+07</td>
+      <td>7.843871e+06</td>
+      <td>178.022250</td>
+      <td>77.008000</td>
+      <td>6.861035e+06</td>
+      <td>72.275500</td>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>3.138003e+09</td>
+      <td>1.276556e+09</td>
+      <td>335.811000</td>
+      <td>124.567000</td>
+      <td>1.235633e+09</td>
+      <td>121.448000</td>
+      <td>11.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>A better way to present data is using <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function to draw all columns:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">vac</span> <span class="o">=</span> <span class="n">vac</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;TOTAL_VACCINATIONS&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">top20</span> <span class="o">=</span> <span class="n">vac</span><span class="p">[[</span><span class="s1">&#39;TOTAL_VACCINATIONS&#39;</span><span class="p">]][:</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">vac</span><span class="p">[</span><span class="s1">&#39;COUNTRY&#39;</span><span class="p">][:</span><span class="mi">20</span><span class="p">]</span>
+<span class="n">top20</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">countries</span>
+
+<span class="n">top20</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;TOTAL_VACCINATIONS&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;TOTAL_VACCINATIONS&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/lec-3_23_1.png" src="_images/lec-3_23_1.png" />
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">plot()</span></code> is a convinient way to visualize data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, but it is
+not perfect. We will learn more about the data visualization in following lectures.</p>
+</div>
+</div>
+<div class="section" id="select">
+<h2>Select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code> provides different ways to select elements in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="section" id="iloc">
+<h3><code class="docutils literal notranslate"><span class="pre">iloc</span></code><a class="headerlink" href="#iloc" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">iloc[n]</span></code> will give the <span class="math notranslate nohighlight">\(n-1\)</span> rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, i.e., a <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTRY                                                                             China
+ISO3                                                                                  CHN
+WHO_REGION                                                                           WPRO
+DATA_SOURCE                                                                     REPORTING
+DATE_UPDATED                                                                   2022-02-27
+TOTAL_VACCINATIONS                                                             3138003103
+PERSONS_VACCINATED_1PLUS_DOSE                                                1276556393.0
+TOTAL_VACCINATIONS_PER100                                                         213.283
+PERSONS_VACCINATED_1PLUS_DOSE_PER100                                               86.765
+PERSONS_FULLY_VACCINATED                                                     1235633241.0
+PERSONS_FULLY_VACCINATED_PER100                                                    83.983
+VACCINES_USED                           Anhui ZL - Recombinant,Beijing CNBG - BBIBP-Co...
+FIRST_VACCINE_DATE                                                             2020-07-22
+NUMBER_VACCINES_TYPES_USED                                                            8.0
+Name: 43, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">iloc</span></code> index starts from <span class="math notranslate nohighlight">\(0\)</span>, instead of <span class="math notranslate nohighlight">\(1\)</span>. So the <span class="math notranslate nohighlight">\(n\)</span>-rows has a index <span class="math notranslate nohighlight">\(n-1\)</span>.</p>
+</div>
+<p>In order to select multiple rows, just feed a list containing indices to the <code class="docutils literal notranslate"><span class="pre">iloc</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>ISO3</th>
+      <th>WHO_REGION</th>
+      <th>DATA_SOURCE</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <th>VACCINES_USED</th>
+      <th>FIRST_VACCINE_DATE</th>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>43</th>
+      <td>China</td>
+      <td>CHN</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-27</td>
+      <td>3138003103</td>
+      <td>1.276556e+09</td>
+      <td>213.283</td>
+      <td>86.765</td>
+      <td>1.235633e+09</td>
+      <td>83.983</td>
+      <td>Anhui ZL - Recombinant,Beijing CNBG - BBIBP-Co...</td>
+      <td>2020-07-22</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>India</td>
+      <td>IND</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-02-28</td>
+      <td>1776718549</td>
+      <td>9.642345e+08</td>
+      <td>128.747</td>
+      <td>69.872</td>
+      <td>7.923996e+08</td>
+      <td>57.420</td>
+      <td>Bharat - Covaxin,Gamaleya - Gam-Covid-Vac,Jans...</td>
+      <td>2021-01-16</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>218</th>
+      <td>United States of America</td>
+      <td>USA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>537567013</td>
+      <td>2.531571e+08</td>
+      <td>162.406</td>
+      <td>76.482</td>
+      <td>2.101726e+08</td>
+      <td>63.496</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>2020-12-14</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Also, you can select both rows and columns at the same time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>43</th>
+      <td>China</td>
+      <td>2022-02-27</td>
+      <td>3138003103</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>India</td>
+      <td>2022-02-28</td>
+      <td>1776718549</td>
+    </tr>
+    <tr>
+      <th>218</th>
+      <td>United States of America</td>
+      <td>2022-02-25</td>
+      <td>537567013</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Or just access single element:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2022-02-27&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>You can also use <a class="reference external" href="lec-2.html#slice-operations">slice operations</a> to access elements, try <code class="docutils literal notranslate"><span class="pre">vac.iloc[0:2,</span> <span class="pre">0:3]</span></code></p>
+</div>
+</div>
+<div class="section" id="loc">
+<h3><code class="docutils literal notranslate"><span class="pre">loc</span></code><a class="headerlink" href="#loc" title="Permalink to this headline">¶</a></h3>
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> may be confused to read because it uses numbers as index. However,
+<code class="docutils literal notranslate"><span class="pre">loc</span></code> provides another way to access by index and columns in <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;COUNTRY&quot;</span><span class="p">,</span> <span class="s2">&quot;DATE_UPDATED&quot;</span><span class="p">,</span> <span class="s2">&quot;TOTAL_VACCINATIONS&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>2022-03-06</td>
+      <td>5597130</td>
+    </tr>
+    <tr>
+      <th>134</th>
+      <td>Mongolia</td>
+      <td>2022-02-25</td>
+      <td>5568712</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>Lebanon</td>
+      <td>2022-02-28</td>
+      <td>5452304</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Croatia</td>
+      <td>2022-02-20</td>
+      <td>5179921</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>Guinea</td>
+      <td>2022-03-03</td>
+      <td>5159979</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>Northern Mariana Islands (Commonwealth of the)</td>
+      <td>2022-02-04</td>
+      <td>105295</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>Faroe Islands</td>
+      <td>2022-02-18</td>
+      <td>103894</td>
+    </tr>
+    <tr>
+      <th>132</th>
+      <td>Micronesia (Federated States of)</td>
+      <td>2022-02-16</td>
+      <td>97185</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>Grenada</td>
+      <td>2022-02-25</td>
+      <td>85891</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>American Samoa</td>
+      <td>2022-02-16</td>
+      <td>85050</td>
+    </tr>
+  </tbody>
+</table>
+<p>103 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Becareful with the <strong>index</strong> names in <code class="docutils literal notranslate"><span class="pre">iloc</span></code> and <code class="docutils literal notranslate"><span class="pre">loc</span></code>. They are different.</p>
+</div>
+</div>
+<div class="section" id="boolean-access">
+<h3>Boolean access<a class="headerlink" href="#boolean-access" title="Permalink to this headline">¶</a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> accept boolean parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vac</span><span class="p">[</span><span class="n">vac</span><span class="p">[</span><span class="s1">&#39;TOTAL_VACCINATIONS&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100000000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTRY</th>
+      <th>ISO3</th>
+      <th>WHO_REGION</th>
+      <th>DATA_SOURCE</th>
+      <th>DATE_UPDATED</th>
+      <th>TOTAL_VACCINATIONS</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE</th>
+      <th>TOTAL_VACCINATIONS_PER100</th>
+      <th>PERSONS_VACCINATED_1PLUS_DOSE_PER100</th>
+      <th>PERSONS_FULLY_VACCINATED</th>
+      <th>PERSONS_FULLY_VACCINATED_PER100</th>
+      <th>VACCINES_USED</th>
+      <th>FIRST_VACCINE_DATE</th>
+      <th>NUMBER_VACCINES_TYPES_USED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>43</th>
+      <td>China</td>
+      <td>CHN</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-27</td>
+      <td>3138003103</td>
+      <td>1.276556e+09</td>
+      <td>213.283</td>
+      <td>86.765</td>
+      <td>1.235633e+09</td>
+      <td>83.983</td>
+      <td>Anhui ZL - Recombinant,Beijing CNBG - BBIBP-Co...</td>
+      <td>2020-07-22</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>India</td>
+      <td>IND</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-02-28</td>
+      <td>1776718549</td>
+      <td>9.642345e+08</td>
+      <td>128.747</td>
+      <td>69.872</td>
+      <td>7.923996e+08</td>
+      <td>57.420</td>
+      <td>Bharat - Covaxin,Gamaleya - Gam-Covid-Vac,Jans...</td>
+      <td>2021-01-16</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>218</th>
+      <td>United States of America</td>
+      <td>USA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>537567013</td>
+      <td>2.531571e+08</td>
+      <td>162.406</td>
+      <td>76.482</td>
+      <td>2.101726e+08</td>
+      <td>63.496</td>
+      <td>Janssen - Ad26.COV 2-S,Moderna - Spikevax,Pfiz...</td>
+      <td>2020-12-14</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Brazil</td>
+      <td>BRA</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>369527744</td>
+      <td>1.723341e+08</td>
+      <td>173.847</td>
+      <td>81.076</td>
+      <td>1.487775e+08</td>
+      <td>69.993</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2021-01-17</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Indonesia</td>
+      <td>IDN</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-03-01</td>
+      <td>345697245</td>
+      <td>1.909768e+08</td>
+      <td>126.387</td>
+      <td>69.821</td>
+      <td>1.445058e+08</td>
+      <td>52.831</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-01-13</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>Japan</td>
+      <td>JPN</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-24</td>
+      <td>223820819</td>
+      <td>1.016722e+08</td>
+      <td>176.966</td>
+      <td>80.388</td>
+      <td>1.001786e+08</td>
+      <td>79.207</td>
+      <td>AstraZeneca - Vaxzevria,Moderna - Spikevax,Nov...</td>
+      <td>2021-02-17</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>Pakistan</td>
+      <td>PAK</td>
+      <td>EMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-28</td>
+      <td>213532343</td>
+      <td>1.243097e+08</td>
+      <td>96.668</td>
+      <td>56.276</td>
+      <td>1.000965e+08</td>
+      <td>45.315</td>
+      <td>Beijing CNBG - BBIBP-CorV,Bharat - Covaxin,Can...</td>
+      <td>2021-02-03</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Bangladesh</td>
+      <td>BGD</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-03-01</td>
+      <td>213176935</td>
+      <td>1.246919e+08</td>
+      <td>129.442</td>
+      <td>75.713</td>
+      <td>8.461175e+07</td>
+      <td>51.377</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-01-27</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>Viet Nam</td>
+      <td>VNM</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-24</td>
+      <td>192865986</td>
+      <td>7.946939e+07</td>
+      <td>198.139</td>
+      <td>81.642</td>
+      <td>7.532254e+07</td>
+      <td>77.382</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-03-08</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>131</th>
+      <td>Mexico</td>
+      <td>MEX</td>
+      <td>AMRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-25</td>
+      <td>179274307</td>
+      <td>8.508365e+07</td>
+      <td>139.045</td>
+      <td>65.991</td>
+      <td>7.875005e+07</td>
+      <td>61.078</td>
+      <td>AstraZeneca - Vaxzevria,CanSino - Convidecia,G...</td>
+      <td>2020-12-24</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>Germany</td>
+      <td>DEU</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-20</td>
+      <td>169071638</td>
+      <td>6.338051e+07</td>
+      <td>203.300</td>
+      <td>76.209</td>
+      <td>6.250088e+07</td>
+      <td>75.151</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2020-12-23</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>Russian Federation</td>
+      <td>RUS</td>
+      <td>EURO</td>
+      <td>OWID</td>
+      <td>2022-02-17</td>
+      <td>160816996</td>
+      <td>7.828428e+07</td>
+      <td>110.200</td>
+      <td>53.643</td>
+      <td>7.160191e+07</td>
+      <td>49.064</td>
+      <td>SRCVB - EpiVacCorona, Gamaleya - Sputnik V</td>
+      <td>NaN</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>France</td>
+      <td>FRA</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-20</td>
+      <td>153013512</td>
+      <td>5.470059e+07</td>
+      <td>227.300</td>
+      <td>81.254</td>
+      <td>5.368728e+07</td>
+      <td>79.749</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2020-12-30</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>210</th>
+      <td>Turkey</td>
+      <td>TUR</td>
+      <td>EURO</td>
+      <td>OWID</td>
+      <td>2022-02-23</td>
+      <td>144850157</td>
+      <td>5.762345e+07</td>
+      <td>171.700</td>
+      <td>69.296</td>
+      <td>5.271558e+07</td>
+      <td>63.394</td>
+      <td>Pfizer BioNTech - Comirnaty, Sinovac - CoronaV...</td>
+      <td>NaN</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Iran (Islamic Republic of)</td>
+      <td>IRN</td>
+      <td>EMRO</td>
+      <td>REPORTING</td>
+      <td>2022-03-06</td>
+      <td>142195819</td>
+      <td>6.311054e+07</td>
+      <td>169.295</td>
+      <td>75.138</td>
+      <td>5.571737e+07</td>
+      <td>66.336</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-02-09</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>203</th>
+      <td>The United Kingdom</td>
+      <td>GBR</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-22</td>
+      <td>139482283</td>
+      <td>5.257359e+07</td>
+      <td>205.500</td>
+      <td>77.246</td>
+      <td>4.888589e+07</td>
+      <td>71.828</td>
+      <td>AstraZeneca - Vaxzevria,Moderna - Spikevax,Pfi...</td>
+      <td>2020-12-21</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>161</th>
+      <td>Philippines</td>
+      <td>PHL</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-24</td>
+      <td>135251295</td>
+      <td>6.866160e+07</td>
+      <td>123.426</td>
+      <td>62.658</td>
+      <td>6.301683e+07</td>
+      <td>57.507</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-03-01</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>Italy</td>
+      <td>ITA</td>
+      <td>EURO</td>
+      <td>REPORTING</td>
+      <td>2022-02-20</td>
+      <td>131126289</td>
+      <td>5.019838e+07</td>
+      <td>219.900</td>
+      <td>84.171</td>
+      <td>4.679558e+07</td>
+      <td>78.461</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2020-12-23</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>Thailand</td>
+      <td>THA</td>
+      <td>SEARO</td>
+      <td>REPORTING</td>
+      <td>2022-02-28</td>
+      <td>123738218</td>
+      <td>5.358496e+07</td>
+      <td>177.275</td>
+      <td>76.769</td>
+      <td>4.967325e+07</td>
+      <td>71.165</td>
+      <td>AstraZeneca - Vaxzevria,Beijing CNBG - BBIBP-C...</td>
+      <td>2021-02-28</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>Republic of Korea</td>
+      <td>KOR</td>
+      <td>WPRO</td>
+      <td>REPORTING</td>
+      <td>2022-02-27</td>
+      <td>118895241</td>
+      <td>4.477671e+07</td>
+      <td>231.904</td>
+      <td>87.336</td>
+      <td>4.428542e+07</td>
+      <td>86.378</td>
+      <td>AstraZeneca - Vaxzevria,Janssen - Ad26.COV 2-S...</td>
+      <td>2021-02-26</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="modify">
+<h3>Modify<a class="headerlink" href="#modify" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
