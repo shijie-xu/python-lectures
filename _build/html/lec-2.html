@@ -279,6 +279,33 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-operations">
+   File operations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-write-file">
+     Read/write file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#try-except-statement">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       try-except
+      </span>
+     </code>
+     statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#directoray">
+     Directoray
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -350,6 +377,33 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-operations">
+   File operations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-write-file">
+     Read/write file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#try-except-statement">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       try-except
+      </span>
+     </code>
+     statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#directoray">
+     Directoray
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -364,8 +418,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>In this lecture, you will learn</p>
 <ul class="simple">
 <li><p>advanced data types</p></li>
-<li><p>basic data processing packages (coming soon)</p></li>
-<li><p>basic file read/write operations (coming soon)</p></li>
+<li><p>basic file read/write operations.</p></li>
 </ul>
 <div class="section" id="advanced-data-types">
 <h2>Advanced data types<a class="headerlink" href="#advanced-data-types" title="Permalink to this headline">¶</a></h2>
@@ -717,6 +770,102 @@ and the way</p>
 </div>
 </div>
 <p>will define a new <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+</div>
+</div>
+<div class="section" id="file-operations">
+<h2>File operations<a class="headerlink" href="#file-operations" title="Permalink to this headline">¶</a></h2>
+<p>In most operating systems(Windows/macOS/Linux), there are two
+different ways to locate a file or a directory:</p>
+<ul class="simple">
+<li><p>absolute path, e.g., <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32</span></code></p></li>
+<li><p>related path, e.g., <code class="docutils literal notranslate"><span class="pre">../notebooks/lec2.ipynb</span></code>
+<strong>Absolute path</strong> means a fixed way to access files wherever
+you current directory(i.e., path to your Python script) is,
+while <strong>related path</strong> could be change regarding current directory.</p></li>
+</ul>
+<p>Some symbols are used for constructing related path:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.</span></code> means the current directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.</span></code> means the parent directory, which is the directory containing <code class="docutils literal notranslate"><span class="pre">.</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> means the home directory. For Windows, it should be like
+<code class="docutils literal notranslate"><span class="pre">C:\Users\[your</span> <span class="pre">user</span> <span class="pre">name]</span></code>, for Linux, it should be like
+<code class="docutils literal notranslate"><span class="pre">/home/[your</span> <span class="pre">user</span> <span class="pre">name]</span></code> and for macOS, it should be like
+<code class="docutils literal notranslate"><span class="pre">/Users/[your</span> <span class="pre">user</span> <span class="pre">name]</span></code>.</p></li>
+</ul>
+<div class="section" id="read-write-file">
+<h3>Read/write file<a class="headerlink" href="#read-write-file" title="Permalink to this headline">¶</a></h3>
+<p>To read or write file is just simple with <code class="docutils literal notranslate"><span class="pre">open()</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;hello world.&#39;</span><span class="p">)</span>
+<span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, the first parameter in <code class="docutils literal notranslate"><span class="pre">open()</span></code> is the path to your file and
+both related/absolute path is okay. <code class="docutils literal notranslate"><span class="pre">w</span></code> as the second parameter to <code class="docutils literal notranslate"><span class="pre">open()</span></code> represents <strong>write</strong>
+mode, as <code class="docutils literal notranslate"><span class="pre">r</span></code> means <strong>read</strong> mode. So please try following code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is recommended to use <code class="docutils literal notranslate"><span class="pre">close()</span></code> function to close your file.
+However, if you forget to do so, Python will automatically close
+file after the program is finished.</p>
+</div>
+</div>
+<div class="section" id="try-except-statement">
+<h3><code class="docutils literal notranslate"><span class="pre">try-except</span></code> statement<a class="headerlink" href="#try-except-statement" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, the file you want to access may not exist on the disk.
+If that happens, the Python script might exit exceptly. A standard
+way to process such caes is using <code class="docutils literal notranslate"><span class="pre">try-except</span></code> structure in Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;not-existed-file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File does not exist.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="directoray">
+<h3>Directoray<a class="headerlink" href="#directoray" title="Permalink to this headline">¶</a></h3>
+<p>You may want to access all files in the specific directory. Python
+provides some packges to do this and here is just a sample:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can check if some files/directories exist by following code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Also, you can get a list of all files in the current directory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

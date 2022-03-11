@@ -46,7 +46,7 @@ Another better choice is [PyCharm](https://www.jetbrains.com/pycharm/download/),
 which provides a complete toolchain for engineering purpose.
 :::
 
-### Install Anaconda 
+## Install Anaconda 
 
 Step 1. Download Anaconda installer.
 ```{figure} ./images/download-anaconda.png
@@ -100,7 +100,7 @@ Some issues may occur during the installation.
   If this happen, choose another location.
 If you meet other issues, please contact me.
 :::
-### Launch Jupyter notebook
+## Launch Jupyter notebook
 After the installation, you can find `Jupyter` in you start menu by 
 searching for keyword `jupyter`, shown as below
 ```{figure} ./images/jupyter.jpeg
@@ -128,3 +128,9 @@ name: nb
 ---
 Congrats! You have created a `Jupyter notebook`.
 ```
+
+## Useful links
+1. https://www.w3schools.com/python/default.asp Baisc Python tutorial
+2. https://www.runoob.com/python/python-tutorial.html Python tutorial (only in Chinese)
+3. https://www.rdkit.org/ Python package for Cheminformatics
+4. https://biopython.org/ Python Package for Computational Molecular Biology

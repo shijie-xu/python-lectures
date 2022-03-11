@@ -248,8 +248,9 @@ vac.loc[0:3, ["COUNTRY", "DATE_UPDATED", "TOTAL_VACCINATIONS"]]
 Becareful with the **index** names in `iloc` and `loc`. They are different.
 :::
 
-### Boolean access
-Both `loc` and `iloc` accept boolean parameters:
+### Filter
+Both `loc` and `iloc` accept boolean parameters, which can be used to filter
+particular elements in the `DataFrame`.
 ```{code-cell}
 vac[vac['TOTAL_VACCINATIONS'] > 100000000]
 ```

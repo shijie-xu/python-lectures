@@ -6,6 +6,8 @@
 # This is a series of lectures to give beginners a feel for how python programming is proceed.
 # 
 # 
+# ## What is Python?
+# 
 # ## How to use this interactive lectures
 # 
 # **For beginners, installing Python in the machine is pretty hard. Here we provide both the 

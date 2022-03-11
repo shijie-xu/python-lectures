@@ -5,8 +5,7 @@
 # 
 # In this lecture, you will learn
 # - advanced data types
-# - basic data processing packages (coming soon)
-# - basic file read/write operations (coming soon)
+# - basic file read/write operations.
 # 
 # ## Advanced data types
 # 
@@ -329,3 +328,91 @@ dd = {fruit:d[fruit]+1 for fruit in d]}
 
 
 # will define a new `dict`.
+# 
+# 
+# ## File operations
+# In most operating systems(Windows/macOS/Linux), there are two 
+# different ways to locate a file or a directory:
+# - absolute path, e.g., `C:\Windows\System32`
+# - related path, e.g., `../notebooks/lec2.ipynb`
+# **Absolute path** means a fixed way to access files wherever 
+# you current directory(i.e., path to your Python script) is,
+# while **related path** could be change regarding current directory.
+# 
+# Some symbols are used for constructing related path:
+# - `.` means the current directory
+# - `.` means the parent directory, which is the directory containing `.`.
+# - `~` means the home directory. For Windows, it should be like 
+# `C:\Users\[your user name]`, for Linux, it should be like
+# `/home/[your user name]` and for macOS, it should be like
+# `/Users/[your user name]`.
+# 
+# 
+# ### Read/write file
+# To read or write file is just simple with `open()` function:
+
+# In[ ]:
+
+
+file = open('data.txt', 'w')
+file.write('hello world.')
+file.close()
+
+
+# Here, the first parameter in `open()` is the path to your file and 
+# both related/absolute path is okay. `w` as the second parameter to `open()` represents **write**
+# mode, as `r` means **read** mode. So please try following code:
+
+# In[ ]:
+
+
+file = open('data.txt', 'r')
+s = file.readlines()
+print(s)
+
+
+# :::{tip}
+# It is recommended to use `close()` function to close your file.
+# However, if you forget to do so, Python will automatically close
+# file after the program is finished.
+# :::
+# 
+# ### `try-except` statement
+# Sometimes, the file you want to access may not exist on the disk.
+# If that happens, the Python script might exit exceptly. A standard
+# way to process such caes is using `try-except` structure in Python:
+
+# In[ ]:
+
+
+try:
+    file = open('not-existed-file.txt', 'r')
+except:
+    print("File does not exist.")
+
+
+# ### Directoray
+# You may want to access all files in the specific directory. Python
+# provides some packges to do this and here is just a sample:
+
+# In[ ]:
+
+
+import os
+
+
+# You can check if some files/directories exist by following code:
+
+# In[ ]:
+
+
+os.path.exists('index.html')
+
+
+# Also, you can get a list of all files in the current directory:
+
+# In[ ]:
+
+
+os.listdir('.')
+
