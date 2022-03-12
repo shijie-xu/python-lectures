@@ -21,6 +21,20 @@ This is a series of lectures to give beginners a feel for how python programming
 
 ## What is Python?
 
+
+> Life is short, use Python.
+
+Python is a popular high-level programming language created 
+by *Guido van Rossum*, and released in 1991. It is used in various cases including
+- scientific computing
+- software development
+- web development (Yes, the page you are reading is powered by Python!)
+- system scripting
+
+Also, you may choose to learn Python for
+- its simple yet precise syntax, elegant way to organize code, and
+- efficiency to save more 90% programming time compared with C/C++, Java, etc.
+
 ## How to use this interactive lectures
 
 **For beginners, installing Python in the machine is pretty hard. Here we provide both the 
