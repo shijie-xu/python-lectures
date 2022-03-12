@@ -21,19 +21,6 @@ In this lecture, we will learn
 
 ## Introduction
 
-> Life is short, use Python.
-
-Python is a popular high-level programming language created 
-by *Guido van Rossum*, and released in 1991. It is used in various cases including
-- scientific computing
-- software development
-- web development (Yes, the page you are reading is powered by Python!)
-- system scripting
-
-Also, you may choose to learn Python for
-- its simple yet precise syntax, elegant way to organize code, and
-- efficiency to save more 90% programming time compared with C/C++, Java, etc.
-
 I strongly recommend to choose `Anaconda`,
 a Python distribution aiming to simplify using for researchers
 who have no experience in programming. `Jupyter`, a web-based editor
